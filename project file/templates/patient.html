@@ -1,0 +1,9 @@
+<h2>Patient Dashboard - {{ user }}</h2>
+<a href="{{ url_for('logout') }}">Logout</a> | 
+<a href="{{ url_for('book_appointment') }}">Book Appointment</a>
+<h3>Your Appointments:</h3>
+<ul>
+{% for a in appointments %}
+    <li>Doctor: {{ a['doctor_name'] }} - {{ a['date'] }} - {{ a['reason'] }}</li>
+{% endfor %}
+</ul>
