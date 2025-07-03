@@ -1,0 +1,8 @@
+<h2>Book Appointment</h2>
+<form method="POST">
+    Doctor's Name: <input type="text" name="doctor" required><br>
+    Date: <input type="date" name="date" required><br>
+    Reason: <input type="text" name="reason" required><br>
+    <button type="submit">Book</button>
+</form>
+<a href="{{ url_for('patient_dashboard') }}">Back to Dashboard</a>
