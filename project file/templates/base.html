@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MedTrack</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        header { background: #3498db; color: white; padding: 10px; }
+        nav a { margin: 10px; text-decoration: none; color: #3498db; }
+        .content { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MedTrack</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        {% if session.username %}
+            {% if session.role == 'doctor' %}
+                <a href="/doctor">Doctor Dashboard</a>
+            {% elif session.role == 'patient' %}
+                <a href="/patient">Patient Dashboard</a>
+            {% endif %}
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
