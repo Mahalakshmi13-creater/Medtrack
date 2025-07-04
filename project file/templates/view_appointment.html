@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}View Appointment Details{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Appointment Details (ID: {{ appointment.id }})</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Date:</strong> {{ appointment.date }}</li>
+                <li class="list-group-item"><strong>Time:</strong> {{ appointment.time }}</li>
+                <li class="list-group-item"><strong>Status:</strong> <span class="badge badge-{% if appointment.status == 'Scheduled' %}success{% elif appointment.status == 'Pending' %}warning{% else %}info{% endif %}">{{ appointment.status }}</span></li>
+                <li class="list-group-item"><strong>Patient:</strong> {{ patient_name }} ({{ appointment.patient_email }})</li>
+                <li class="list-group-item"><strong>Doctor:</strong> {{ doctor_name }} ({{ appointment.doctor_email }})</li>
+                <li class="list-group-item"><strong>Notes:</strong> {{ appointment.notes if appointment.notes else 'N/A' }}</li>
+            </ul>
+
+            {% if session.get('role') == 'doctor' and appointment.status == 'Pending' %}
+            <div class="mt-4">
+                <h4>Doctor Actions:</h4>
+                <form method="POST" action="">
+                    <button type="submit" class="btn btn-success" disabled>Approve Appointment (Not Implemented)</button>
+                    <button type="submit" class="btn btn-danger" disabled>Reject Appointment (Not Implemented)</button>
+                </form>
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="card-footer">
+            {% if session.get('role') == 'patient' %}
+                <a href="{{ url_for('patient_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            {% elif session.get('role') == 'doctor' %}
+                <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
